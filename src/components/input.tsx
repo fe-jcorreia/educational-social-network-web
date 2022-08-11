@@ -12,10 +12,10 @@ import { IconType } from "react-icons";
 import { FieldError } from "react-hook-form";
 
 interface InputProps {
-  type: string;
+  type?: string;
   label: string;
-  icon: IconType;
-  placeholder: string;
+  icon?: IconType;
+  placeholder?: string;
   error?: FieldError;
 }
 
@@ -29,9 +29,11 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         {label}
       </FormLabel>
       <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <Icon as={icon} color="gray.500" />
-        </InputLeftElement>
+        {icon && (
+          <InputLeftElement pointerEvents="none">
+            <Icon as={icon} color="gray.500" />
+          </InputLeftElement>
+        )}
         <ChakraInput
           type={type}
           placeholder={placeholder}

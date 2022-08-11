@@ -1,6 +1,10 @@
 import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import { LoginCard } from "../components/login-card/login-card";
+import React from "react";
+import { LoginCard } from "../modules/login-card";
+import { AppStrings } from "../strings";
+
+const strings = AppStrings.Login;
 
 const Home: NextPage = () => {
   return (
@@ -9,11 +13,9 @@ const Home: NextPage = () => {
         <HStack maxW="1080px" mx="auto" h="inherit">
           <Box>
             <Heading color="white" mb="1rem">
-              Compartilhe seus conhecimentos com o mundo!
+              {strings.title}
             </Heading>
-            <Text color="blue.900">
-              Conheça e explore a didática do seu jeito
-            </Text>
+            <Text color="blue.900">{strings.subtitle}</Text>
           </Box>
 
           <LoginCard />

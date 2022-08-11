@@ -1,5 +1,4 @@
-import { Flex, Heading, HStack, Icon, Link, Text } from "@chakra-ui/react";
-import { FiUser, FiLogIn } from "react-icons/fi";
+import { Flex, Heading, HStack, Link } from "@chakra-ui/react";
 
 export function Header() {
   return (
