@@ -1,4 +1,12 @@
-import { Flex, Heading, HStack, Link } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 
 export function Header() {
   return (
@@ -28,6 +36,22 @@ export function Header() {
             </Heading>
           </HStack>
         </Link>
+
+        <HStack spacing="1rem">
+          <Box
+            textAlign="right"
+            pl="1rem"
+            borderLeft="1px"
+            borderColor="gray.300"
+          >
+            <Text>Bruno Móvio</Text>
+            <Text color="gray.500" fontSize="small">
+              bruno.movio@usp.br
+            </Text>
+          </Box>
+
+          <Avatar size="md" name="Bruno Móvio" />
+        </HStack>
       </Flex>
     </Flex>
   );
