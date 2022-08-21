@@ -37,21 +37,23 @@ export function Header() {
           </HStack>
         </Link>
 
-        <HStack spacing="1rem">
-          <Box
-            textAlign="right"
-            pl="1rem"
-            borderLeft="1px"
-            borderColor="gray.300"
-          >
-            <Text>Bruno Móvio</Text>
-            <Text color="gray.500" fontSize="small">
-              bruno.movio@usp.br
-            </Text>
-          </Box>
+        <Link href="/profile">
+          <HStack spacing="1rem">
+            <Box
+              textAlign="right"
+              pl="1rem"
+              borderLeft="1px"
+              borderColor="gray.300"
+            >
+              <Text>Bruno Móvio</Text>
+              <Text color="gray.500" fontSize="small">
+                bruno.movio@usp.br
+              </Text>
+            </Box>
 
-          <Avatar size="md" name="Bruno Móvio" />
-        </HStack>
+            <Avatar size="md" name="Bruno Móvio" />
+          </HStack>
+        </Link>
       </Flex>
     </Flex>
   );

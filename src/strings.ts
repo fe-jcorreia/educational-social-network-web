@@ -1,6 +1,24 @@
 export const AppStrings = {
   // Common strings
 
+  Home: {
+    postCards: {
+      sharedRepository: " compartilhou um ",
+      file: "arquivo",
+      updatedAt: "Atualizado {{date}}",
+    },
+    postsRecommendations: {
+      title: "Explore outros repositórios",
+      exploreMore: "Explore mais",
+    },
+    sideMenu: {
+      repositories: "Meus repositórios",
+      friends: "Amigos",
+      groups: "Grupos",
+      marketplace: "Marketplace",
+    },
+  },
+
   Login: {
     title: "Compartilhe seus conhecimentos com o mundo!",
     subtitle: "Conheça e explore a didática do seu jeito",
