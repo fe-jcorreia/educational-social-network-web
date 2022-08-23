@@ -64,6 +64,10 @@ export const AppStrings = {
     },
     button: "Cadastrar-se",
   },
+
+  Profile: {
+    myRepositories: "Meus repositórios",
+  },
 };
 
 export function replaceTemplateString(

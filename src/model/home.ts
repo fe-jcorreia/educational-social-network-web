@@ -1,14 +1,6 @@
-export type HomePostCardData = {
-  id: string;
-  username: string;
-  repositoryLink: string;
-  creationDate: string;
-  lastUpdateDate: string;
-  repositoryTitle: string;
-  repositoryDescription: string;
-  stars: number;
-  hasLiked: boolean;
-};
+import { Repository } from "./profile";
+
+export interface HomePostCardData extends Repository {}
 
 export type HomeRecommendationCardData = {
   id: string;
@@ -16,7 +8,6 @@ export type HomeRecommendationCardData = {
   hasLiked: boolean;
   repositoryTitle: string;
   repositoryDescription: string;
-  repositoryLink: string;
 };
 
 export type HomeData = {

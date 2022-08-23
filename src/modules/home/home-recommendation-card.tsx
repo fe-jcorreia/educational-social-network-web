@@ -16,18 +16,12 @@ interface HomeRecommendationCardProps {
     hasLiked: boolean;
     repositoryTitle: string;
     repositoryDescription: string;
-    repositoryLink: string;
   };
 }
 
 export const HomeRecommendationCard = (props: HomeRecommendationCardProps) => {
-  const {
-    stars,
-    hasLiked,
-    repositoryTitle,
-    repositoryDescription,
-    repositoryLink,
-  } = props?.recomendationCard;
+  const { stars, hasLiked, repositoryTitle, repositoryDescription } =
+    props?.recomendationCard;
 
   const [liked, setLiked] = React.useState(hasLiked);
 
@@ -39,7 +33,7 @@ export const HomeRecommendationCard = (props: HomeRecommendationCardProps) => {
   return (
     <>
       <Box alignItems="center" mb="1rem">
-        <Link href={repositoryLink}>
+        <Link href="/">
           <Heading textAlign="left" fontSize="xs">
             {repositoryTitle}
           </Heading>

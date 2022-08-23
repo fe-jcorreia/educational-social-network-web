@@ -16,7 +16,7 @@ const strings = AppStrings.Home.sideMenu;
 export const HomeSideMenu = (props: HomeSideMenuProps) => {
   return (
     <VStack alignItems="start">
-      <Link href={`/${props?.username}`}>
+      <Link href={`/profile/${props?.username}`}>
         <Button
           leftIcon={<Icon as={FcFilingCabinet} />}
           size="lg"

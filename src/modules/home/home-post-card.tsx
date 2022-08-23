@@ -14,7 +14,6 @@ const strings = AppStrings.Home.postCards;
 export const HomePostCard = (props: PostComponentProps) => {
   const {
     username,
-    repositoryLink,
     stars,
     hasLiked,
     creationDate,
@@ -26,15 +25,15 @@ export const HomePostCard = (props: PostComponentProps) => {
   return (
     <Box maxW="70%" mx="auto">
       <Flex align="center" mb="0.5rem">
-        <Link href={`/${username}`}>
+        <Link href={`/profile/${username}`}>
           <Avatar size="sm" name={username} mr="0.5rem" />
         </Link>
         <Text mr="0.5rem">
-          <Link href={`/${username}`}>
+          <Link href={`/profile/${username}`}>
             <strong>{username}</strong>
           </Link>
           {strings.sharedRepository}
-          <Link href={repositoryLink}>
+          <Link href="/">
             <strong>{strings.file}</strong>
           </Link>
         </Text>
@@ -48,7 +47,6 @@ export const HomePostCard = (props: PostComponentProps) => {
           lastUpdateDate,
           repositoryTitle,
           repositoryDescription,
-          repositoryLink,
         }}
       />
 

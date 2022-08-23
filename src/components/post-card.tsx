@@ -11,7 +11,6 @@ interface PostCardProps {
     lastUpdateDate: string;
     repositoryTitle: string;
     repositoryDescription: string;
-    repositoryLink: string;
   };
 }
 
@@ -24,7 +23,6 @@ export const PostCard = (props: PostCardProps) => {
     lastUpdateDate,
     repositoryTitle,
     repositoryDescription,
-    repositoryLink,
   } = props?.postCard;
 
   const [liked, setLiked] = React.useState(hasLiked);
@@ -35,8 +33,14 @@ export const PostCard = (props: PostCardProps) => {
   };
 
   return (
-    <Box p="0.75rem" border="1px" borderColor="gray.300" borderRadius="10px">
-      <Link href={repositoryLink}>
+    <Box
+      p="0.75rem"
+      border="1px"
+      borderColor="gray.300"
+      borderRadius="10px"
+      w="100%"
+    >
+      <Link href="/">
         <Heading mb="0.25rem" fontSize="lg">
           {repositoryTitle}
         </Heading>

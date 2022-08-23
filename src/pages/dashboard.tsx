@@ -43,9 +43,8 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
   username: "bmovio",
   mainHomePosts: [
     {
-      id: "1232-9502-8532",
+      id: "1232-9502-8531",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -56,7 +55,6 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     {
       id: "1232-9502-8532",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -65,9 +63,8 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       hasLiked: false,
     },
     {
-      id: "1232-9502-8532",
+      id: "1232-9502-8533",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -76,9 +73,8 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       hasLiked: false,
     },
     {
-      id: "1232-9502-8532",
+      id: "1232-9502-8534",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -87,9 +83,8 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       hasLiked: false,
     },
     {
-      id: "1232-9502-8532",
+      id: "1232-9502-8535",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -98,9 +93,8 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       hasLiked: false,
     },
     {
-      id: "1232-9502-8532",
+      id: "1232-9502-8536",
       username: "jorji-kernelshita",
-      repositoryLink: "https://shouldideploy.today",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais/Turma 2021",
@@ -117,7 +111,6 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       repositoryTitle: "tamytakara/formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-      repositoryLink: "https://shouldideploy.today",
     },
     {
       id: "9341-1221-4520",
@@ -126,7 +119,6 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       repositoryTitle: "tamytakara/formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-      repositoryLink: "https://shouldideploy.today",
     },
     {
       id: "9341-4521-4520",
@@ -135,7 +127,6 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       repositoryTitle: "tamytakara/formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-      repositoryLink: "https://shouldideploy.today",
     },
   ],
 };

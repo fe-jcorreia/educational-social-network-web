@@ -26,7 +26,7 @@ export function Header() {
         align="center"
         justify="space-between"
       >
-        <Link href="/">
+        <Link href="/dashboard">
           <HStack spacing={0}>
             <Heading fontSize="5xl" fontWeight="600" color="blue.700">
               Edu
