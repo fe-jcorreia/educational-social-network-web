@@ -1,4 +1,4 @@
-import { Repository } from "./profile";
+import { Repository } from "./repository.model";
 
 export interface HomePostCardData extends Repository {}
 

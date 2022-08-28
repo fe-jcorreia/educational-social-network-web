@@ -14,10 +14,10 @@ import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { BiBuildings } from "react-icons/bi";
 import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
-import { PostCard } from "../../components/post-card";
+import { RepositoryCard } from "@src/components";
 
-import { ProfileData } from "../../model/profile";
-import { AppStrings } from "../../strings";
+import { ProfileData } from "@src/model";
+import { AppStrings } from "@src/strings";
 
 interface ProfileProps {
   profileData: ProfileData;
@@ -74,7 +74,7 @@ export default function Profile({ profileData }: ProfileProps) {
           </Heading>
           {repositories?.map((repository) => (
             <>
-              <PostCard key={repository.id} postCard={repository} />
+              <RepositoryCard key={repository.id} repositoryCard={repository} />
               <Divider />
             </>
           ))}

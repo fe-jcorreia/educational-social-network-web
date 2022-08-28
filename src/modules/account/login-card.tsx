@@ -16,11 +16,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FiLock, FiMail } from "react-icons/fi";
-import { Input } from "../../components/input";
+import { Input } from "@src/components";
 import React from "react";
 import { SignUpCard } from "./signup-card";
-import { AppStrings } from "../../strings";
-import { LoginAccountFormData } from "../../model/account";
+import { AppStrings } from "@src/strings";
+import { LoginAccountFormData } from "@src/model";
 
 const strings = AppStrings.Login;
 const signUpStrings = AppStrings.SignUp;

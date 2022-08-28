@@ -1,15 +1,15 @@
 import { Avatar, Box, Divider, Flex, Link, Text } from "@chakra-ui/react";
 import React from "react";
-import { PostCard } from "../../components/post-card";
-import { HomePostCardData } from "../../model/home";
-import { AppStrings } from "../../strings";
-import { getPastTime } from "../../utils/date-formatter";
+import { RepositoryCard } from "@src/components";
+import { HomePostCardData } from "@src/model";
+import { AppStrings } from "@src/strings";
+import { getPastTime } from "@src/utils";
 
 interface PostComponentProps {
   mainHomePosts: HomePostCardData;
 }
 
-const strings = AppStrings.Home.postCards;
+const strings = AppStrings.Home.repositoryCards;
 
 export const HomePostCard = (props: PostComponentProps) => {
   const {
@@ -33,15 +33,15 @@ export const HomePostCard = (props: PostComponentProps) => {
             <strong>{username}</strong>
           </Link>
           {strings.sharedRepository}
-          <Link href="/">
+          <Link href={`/repository/${repositoryTitle}`}>
             <strong>{strings.file}</strong>
           </Link>
         </Text>
         <Text fontSize="xs">{getPastTime(new Date(creationDate))}</Text>
       </Flex>
 
-      <PostCard
-        postCard={{
+      <RepositoryCard
+        repositoryCard={{
           stars,
           hasLiked,
           lastUpdateDate,

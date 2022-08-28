@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Flex, Heading, HStack, Icon, Link, Text } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
-import { AppStrings, replaceTemplateString } from "../strings";
-import { getLowerCasePastTime } from "../utils/date-formatter";
+import { AppStrings, replaceTemplateString } from "@src/strings";
+import { getLowerCasePastTime } from "@src/utils";
 
-interface PostCardProps {
-  postCard: {
+interface RepositoryCardProps {
+  repositoryCard: {
     stars: number;
     hasLiked: boolean;
     lastUpdateDate: string;
@@ -14,16 +14,16 @@ interface PostCardProps {
   };
 }
 
-const strings = AppStrings.Home.postCards;
+const strings = AppStrings.Home.repositoryCards;
 
-export const PostCard = (props: PostCardProps) => {
+export const RepositoryCard = ({ repositoryCard }: RepositoryCardProps) => {
   const {
     stars,
     hasLiked,
     lastUpdateDate,
     repositoryTitle,
     repositoryDescription,
-  } = props?.postCard;
+  } = repositoryCard;
 
   const [liked, setLiked] = React.useState(hasLiked);
 
@@ -40,7 +40,7 @@ export const PostCard = (props: PostCardProps) => {
       borderRadius="10px"
       w="100%"
     >
-      <Link href="/">
+      <Link href={`/repository/${repositoryTitle}`}>
         <Heading mb="0.25rem" fontSize="lg">
           {repositoryTitle}
         </Heading>
@@ -62,11 +62,13 @@ export const PostCard = (props: PostCardProps) => {
           </Flex>
         </Link>
 
-        <Text fontSize="xs">
-          {replaceTemplateString(strings.updatedAt, {
-            date: getLowerCasePastTime(new Date(lastUpdateDate)),
-          })}
-        </Text>
+        {lastUpdateDate && (
+          <Text fontSize="xs">
+            {replaceTemplateString(strings.updatedAt, {
+              date: getLowerCasePastTime(new Date(lastUpdateDate)),
+            })}
+          </Text>
+        )}
       </HStack>
     </Box>
   );

@@ -1,8 +1,8 @@
 import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
-import { LoginCard } from "../modules/account/login-card";
-import { AppStrings } from "../strings";
+import { LoginCard } from "@src/modules/account";
+import { AppStrings } from "@src/strings";
 
 const strings = AppStrings.Login;
 

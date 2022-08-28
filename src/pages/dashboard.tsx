@@ -1,11 +1,13 @@
 import { Grid, GridItem, Text, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
-import { HomeData } from "../model/home";
-import { HomePostCard } from "../modules/home/home-post-card";
-import { HomeRecommendationCard } from "../modules/home/home-recommendation-card";
-import { HomeSideMenu } from "../modules/home/home-side-menu";
-import { AppStrings } from "../strings";
+import { HomeData } from "@src/model";
+import {
+  HomePostCard,
+  HomeRecommendationCard,
+  HomeSideMenu,
+} from "@src/modules/home";
+import { AppStrings } from "@src/strings";
 
 const strings = AppStrings.Home.postsRecommendations;
 
@@ -47,7 +49,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -57,7 +59,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -67,7 +69,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -77,7 +79,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -87,7 +89,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -97,7 +99,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       username: "jorji-kernelshita",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais/Turma 2021",
+      repositoryTitle: "sistemas-operacionais",
       repositoryDescription: "Sistemas operacionais para POLI-USP",
       stars: 98,
       hasLiked: false,
@@ -108,7 +110,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       id: "9341-5921-4520",
       stars: 1506,
       hasLiked: false,
-      repositoryTitle: "tamytakara/formar-na-poli",
+      repositoryTitle: "formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
     },
@@ -116,7 +118,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       id: "9341-1221-4520",
       stars: 1506,
       hasLiked: false,
-      repositoryTitle: "tamytakara/formar-na-poli",
+      repositoryTitle: "formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
     },
@@ -124,7 +126,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
       id: "9341-4521-4520",
       stars: 1506,
       hasLiked: false,
-      repositoryTitle: "tamytakara/formar-na-poli",
+      repositoryTitle: "formar-na-poli",
       repositoryDescription:
         "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
     },

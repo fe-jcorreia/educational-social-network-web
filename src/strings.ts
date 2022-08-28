@@ -2,7 +2,7 @@ export const AppStrings = {
   // Common strings
 
   Home: {
-    postCards: {
+    repositoryCards: {
       sharedRepository: " compartilhou um ",
       file: "arquivo",
       updatedAt: "Atualizado {{date}}",

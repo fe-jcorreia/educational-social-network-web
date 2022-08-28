@@ -5,7 +5,7 @@ import {
   FcFilingCabinet,
   FcShop,
 } from "react-icons/fc";
-import { AppStrings } from "../../strings";
+import { AppStrings } from "@src/strings";
 
 interface HomeSideMenuProps {
   username: string;
