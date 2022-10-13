@@ -6,12 +6,17 @@ import { Input } from "@src/components";
 import React from "react";
 import { AppStrings } from "@src/strings";
 import { SignUpAccountFormData } from "@src/model";
+import { useAuthenticate } from "@src/domain/account/authenticate.use-case";
 
 const strings = AppStrings.SignUp;
 
 const signInForSchema = yup.object().shape({
   name: yup.string().required(strings.fieldsRequirements.requiredName).trim(),
   lastName: yup
+    .string()
+    .required(strings.fieldsRequirements.requiredLastName)
+    .trim(),
+  username: yup
     .string()
     .required(strings.fieldsRequirements.requiredLastName)
     .trim(),
@@ -32,12 +37,20 @@ export function SignUpCard() {
     useForm<SignUpAccountFormData>({
       resolver: yupResolver(signInForSchema),
     });
+  const { signUp } = useAuthenticate();
+
   const errors = formState.errors;
 
   const handleSignUp: SubmitHandler<SignUpAccountFormData> = (credentials) => {
     console.log(credentials);
-
-    reset();
+    signUp({
+      name: credentials.name,
+      lastName: credentials.lastName,
+      username: credentials.username,
+      email: credentials.email,
+      password: credentials.password,
+    });
+    // reset();
   };
 
   return (
@@ -60,6 +73,11 @@ export function SignUpCard() {
           {...register("lastName")}
         />
       </HStack>
+      <Input
+        label={strings.fields.username}
+        error={errors.username}
+        {...register("username")}
+      />
       <Input
         type="email"
         label={strings.fields.email}

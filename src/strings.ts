@@ -42,12 +42,14 @@ export const AppStrings = {
     fields: {
       name: "Nome*",
       lastName: "Sobrenome*",
+      username: "Username*",
       email: "Email*",
       password: "Senha*",
     },
     fieldsRequirements: {
       requiredName: "Nome obrigatório",
       requiredLastName: "Sobrenome obrigatório",
+      requiredUsername: "Username obrigatório",
       requiredEmail: "Email obrigatório",
       validEmail: "Precisa ser um email válido",
       requiredPassword: "Senha obrigatória",
