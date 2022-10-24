@@ -11,10 +11,20 @@ export type SignUpAccountFormData = {
   password: string;
 };
 
+enum RoleType {
+  Common = "NORMAL",
+  Admin = "ADMIN",
+}
+
 export type User = {
   id: string;
-  name: string
+  name: string;
+  nickname: string;
   email: string;
-  username: string;
+  role: RoleType;
+  city: string;
+  state: string;
+  country: string;
   description: string;
+  // career: string;
 };

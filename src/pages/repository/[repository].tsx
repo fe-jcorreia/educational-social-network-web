@@ -1,8 +1,12 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
 import { RepositoryData } from "@src/model";
+import { Header } from "@src/components";
+import Router from "next/router";
+import { useAuthenticate } from "@src/domain/account";
 
 interface RepositoryProps {
   repositoryData: RepositoryData;
@@ -15,11 +19,30 @@ interface ServerSideRepositoryParams extends ParsedUrlQuery {
 export default function Repository({ repositoryData }: RepositoryProps) {
   const { title, description } = repositoryData;
 
+  const { logged, loading } = useAuthenticate();
+
+  React.useEffect(() => {
+    if (!loading && !logged) {
+      Router.push("/");
+    }
+  }, [logged, loading]);
+
+  if (loading || !logged) {
+    return (
+      <Flex w="100%" h="100vh" alignItems="center" justify="center">
+        <Image src="/book.gif" alt="Book Gif" />
+      </Flex>
+    );
+  }
+
   return (
-    <Flex>
-      <Heading>{title}</Heading>
-      <Text>{description}</Text>
-    </Flex>
+    <>
+      <Header />
+      <Flex>
+        <Heading>{title}</Heading>
+        <Text>{description}</Text>
+      </Flex>
+    </>
   );
 }
 

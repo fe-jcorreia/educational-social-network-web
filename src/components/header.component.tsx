@@ -7,8 +7,11 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+import { useAuthenticate } from "@src/domain/account";
 
 export function Header() {
+  const { user, logged } = useAuthenticate();
+
   return (
     <Flex
       bg="white"
@@ -37,23 +40,25 @@ export function Header() {
           </HStack>
         </Link>
 
-        <Link href="/profile">
-          <HStack spacing="1rem">
-            <Box
-              textAlign="right"
-              pl="1rem"
-              borderLeft="1px"
-              borderColor="gray.300"
-            >
-              <Text>Bruno Móvio</Text>
-              <Text color="gray.500" fontSize="small">
-                bruno.movio@usp.br
-              </Text>
-            </Box>
+        {logged && (
+          <Link href="/profile">
+            <HStack spacing="1rem">
+              <Box
+                textAlign="right"
+                pl="1rem"
+                borderLeft="1px"
+                borderColor="gray.300"
+              >
+                <Text>{user?.name}</Text>
+                <Text color="gray.500" fontSize="small">
+                  {user?.email}
+                </Text>
+              </Box>
 
-            <Avatar size="md" name="Bruno Móvio" />
-          </HStack>
-        </Link>
+              <Avatar size="md" name={user?.name} />
+            </HStack>
+          </Link>
+        )}
       </Flex>
     </Flex>
   );

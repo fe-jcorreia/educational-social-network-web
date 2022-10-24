@@ -6,7 +6,7 @@ import { Input } from "@src/components";
 import React from "react";
 import { AppStrings } from "@src/strings";
 import { SignUpAccountFormData } from "@src/model";
-import { useAuthenticate } from "@src/domain/account/authenticate.use-case";
+import { useAuthenticate } from "@src/domain/account";
 
 const strings = AppStrings.SignUp;
 
@@ -42,7 +42,6 @@ export function SignUpCard() {
   const errors = formState.errors;
 
   const handleSignUp: SubmitHandler<SignUpAccountFormData> = (credentials) => {
-    console.log(credentials);
     signUp({
       name: credentials.name,
       lastName: credentials.lastName,
@@ -50,7 +49,8 @@ export function SignUpCard() {
       email: credentials.email,
       password: credentials.password,
     });
-    // reset();
+
+    reset();
   };
 
   return (

@@ -21,7 +21,7 @@ import React from "react";
 import { SignUpCard } from "./signup-card";
 import { AppStrings } from "@src/strings";
 import { LoginAccountFormData } from "@src/model";
-import { useAuthenticate } from "@src/domain/account/authenticate.use-case";
+import { useAuthenticate } from "@src/domain/account";
 
 const strings = AppStrings.Login;
 const signUpStrings = AppStrings.SignUp;
@@ -53,7 +53,6 @@ export function LoginCard() {
   const finalRef = React.useRef(null);
 
   const handleLogin: SubmitHandler<LoginAccountFormData> = (credentials) => {
-    console.log(credentials);
     login({ email: credentials.email, password: credentials.password });
 
     reset();

@@ -1,4 +1,4 @@
-import { Grid, GridItem, Text, Heading } from "@chakra-ui/react";
+import { Grid, GridItem, Text, Heading, Flex, Image } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
 import { HomeData } from "@src/model";
@@ -8,36 +8,61 @@ import {
   HomeSideMenu,
 } from "@src/modules/home";
 import { AppStrings } from "@src/strings";
+import { Header } from "@src/components";
+import Router from "next/router";
+import { useAuthenticate } from "@src/domain/account";
 
 const strings = AppStrings.Home.postsRecommendations;
 
 const Dashboard: NextPage = () => {
+  const { logged, loading } = useAuthenticate();
+
+  React.useEffect(() => {
+    if (!loading && !logged) {
+      Router.push("/");
+    }
+  }, [logged, loading]);
+
+  if (loading || !logged) {
+    return (
+      <Flex w="100%" h="100vh" alignItems="center" justify="center">
+        <Image src="/book.gif" alt="Book Gif" />
+      </Flex>
+    );
+  }
+
   return (
-    <Grid templateColumns="repeat(5, 1fr)" mx="1rem" pt="1rem">
-      <GridItem>
-        <HomeSideMenu username={username} />
-      </GridItem>
+    <>
+      <Header />
+      <Grid templateColumns="repeat(5, 1fr)" mx="1rem" pt="1rem">
+        <GridItem>
+          <HomeSideMenu username={username} />
+        </GridItem>
 
-      <GridItem colStart={2} colEnd={5}>
-        {mainHomePosts &&
-          mainHomePosts?.map((post) => {
-            return <HomePostCard key={post.id} mainHomePosts={post} />;
-          })}
-      </GridItem>
+        <GridItem colStart={2} colEnd={5}>
+          {mainHomePosts &&
+            mainHomePosts?.map((post) => {
+              return <HomePostCard key={post.id} mainHomePosts={post} />;
+            })}
+        </GridItem>
 
-      <GridItem>
-        <Heading fontSize="sm" mb="1rem">
-          {strings.title}
-        </Heading>
-        {mainRecommendationsPosts &&
-          mainRecommendationsPosts?.map((post) => {
-            return (
-              <HomeRecommendationCard key={post.id} recomendationCard={post} />
-            );
-          })}
-        <Text fontSize="xs">{strings.exploreMore}</Text>
-      </GridItem>
-    </Grid>
+        <GridItem>
+          <Heading fontSize="sm" mb="1rem">
+            {strings.title}
+          </Heading>
+          {mainRecommendationsPosts &&
+            mainRecommendationsPosts?.map((post) => {
+              return (
+                <HomeRecommendationCard
+                  key={post.id}
+                  recomendationCard={post}
+                />
+              );
+            })}
+          <Text fontSize="xs">{strings.exploreMore}</Text>
+        </GridItem>
+      </Grid>
+    </>
   );
 };
 
@@ -46,7 +71,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
   mainHomePosts: [
     {
       id: "1232-9502-8531",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -56,7 +81,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8532",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -66,7 +91,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8533",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -76,7 +101,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8534",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -86,7 +111,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8535",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -96,7 +121,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8536",
-      username: "jorji-kernelshita",
+      username: "fe-jcorreia",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
