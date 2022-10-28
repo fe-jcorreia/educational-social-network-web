@@ -13,21 +13,34 @@ import { FieldError } from "react-hook-form";
 
 interface InputProps {
   type?: string;
-  label: string;
+  label?: string;
   icon?: IconType;
   placeholder?: string;
   error?: FieldError;
+  value?: string;
+  variant?: "flushed" | "unstyled" | "filled" | "outline";
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { type, label, icon, placeholder, error, ...rest },
+  {
+    type = "text",
+    label,
+    icon,
+    placeholder,
+    error,
+    value,
+    variant = "outline",
+    ...rest
+  },
   ref
 ) => {
   return (
     <FormControl isInvalid={!!error}>
-      <FormLabel m="0" fontSize="sm" htmlFor={type}>
-        {label}
-      </FormLabel>
+      {label && (
+        <FormLabel m="0" fontSize="sm" htmlFor={type}>
+          {label}
+        </FormLabel>
+      )}
       <InputGroup>
         {icon && (
           <InputLeftElement pointerEvents="none">
@@ -36,6 +49,8 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         )}
         <ChakraInput
           type={type}
+          defaultValue={value}
+          variant={variant}
           placeholder={placeholder}
           _hover={{ bgColor: "none" }}
           borderColor="gray.500"

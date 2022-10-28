@@ -15,7 +15,7 @@ import { useAuthenticate } from "@src/domain/account";
 const strings = AppStrings.Home.postsRecommendations;
 
 const Dashboard: NextPage = () => {
-  const { logged, loading } = useAuthenticate();
+  const { user, logged, loading } = useAuthenticate();
 
   React.useEffect(() => {
     if (!loading && !logged) {
@@ -36,7 +36,7 @@ const Dashboard: NextPage = () => {
       <Header />
       <Grid templateColumns="repeat(5, 1fr)" mx="1rem" pt="1rem">
         <GridItem>
-          <HomeSideMenu username={username} />
+          <HomeSideMenu username={user?.nickname} />
         </GridItem>
 
         <GridItem colStart={2} colEnd={5}>
@@ -56,6 +56,7 @@ const Dashboard: NextPage = () => {
                 <HomeRecommendationCard
                   key={post.id}
                   recomendationCard={post}
+                  username={post.username}
                 />
               );
             })}
@@ -66,8 +67,7 @@ const Dashboard: NextPage = () => {
   );
 };
 
-const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
-  username: "bmovio",
+const { mainHomePosts, mainRecommendationsPosts }: HomeData = {
   mainHomePosts: [
     {
       id: "1232-9502-8531",
@@ -81,7 +81,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8532",
-      username: "fe-jcorreia",
+      username: "gigi97princess",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -91,7 +91,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "1232-9502-8533",
-      username: "fe-jcorreia",
+      username: "tamy_takara",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-17",
       repositoryTitle: "sistemas-operacionais",
@@ -133,6 +133,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
   mainRecommendationsPosts: [
     {
       id: "9341-5921-4520",
+      username: "tamyatsu",
       stars: 1506,
       hasLiked: false,
       repositoryTitle: "formar-na-poli",
@@ -141,6 +142,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "9341-1221-4520",
+      username: "tamyatsu",
       stars: 1506,
       hasLiked: false,
       repositoryTitle: "formar-na-poli",
@@ -149,6 +151,7 @@ const { mainHomePosts, mainRecommendationsPosts, username }: HomeData = {
     },
     {
       id: "9341-4521-4520",
+      username: "tamyatsu",
       stars: 1506,
       hasLiked: false,
       repositoryTitle: "formar-na-poli",

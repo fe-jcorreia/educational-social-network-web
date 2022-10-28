@@ -25,15 +25,15 @@ export const HomePostCard = (props: PostComponentProps) => {
   return (
     <Box maxW="70%" mx="auto">
       <Flex align="center" mb="0.5rem">
-        <Link href={`/profile/${username}`}>
+        <Link href={`/edu/${username}`}>
           <Avatar size="sm" name={username} mr="0.5rem" />
         </Link>
         <Text mr="0.5rem">
-          <Link href={`/profile/${username}`}>
+          <Link href={`/edu/${username}`}>
             <strong>{username}</strong>
           </Link>
           {strings.sharedRepository}
-          <Link href={`/repository/${repositoryTitle}`}>
+          <Link href={`/edu/${username}/${repositoryTitle}`}>
             <strong>{strings.file}</strong>
           </Link>
         </Text>
@@ -48,6 +48,7 @@ export const HomePostCard = (props: PostComponentProps) => {
           repositoryTitle,
           repositoryDescription,
         }}
+        username={username}
       />
 
       <Divider my="1.5rem" />

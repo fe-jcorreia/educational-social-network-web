@@ -1,13 +1,15 @@
 import { Repository } from "./repository.model";
 
-export type ProfileData = {
-  username: string;
+export type UserData = {
+  nickname: string;
   name: string;
-  lastName: string;
-  bio: string;
+  description: string;
   email: string;
-  role: string;
+  career: string;
   location: Location;
+};
+
+export type RepositoriesData = {
   repositories: Repository[];
 };
 
@@ -15,4 +17,11 @@ export type Location = {
   city: string;
   state: string;
   country: string;
+};
+
+export type EditProfileFormData = {
+  name: string;
+  description: string;
+  career: string;
+  location: Location;
 };

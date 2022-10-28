@@ -12,11 +12,12 @@ interface RepositoryCardProps {
     repositoryTitle: string;
     repositoryDescription: string;
   };
+  username: string;
 }
 
 const strings = AppStrings.Home.repositoryCards;
 
-export const RepositoryCard = ({ repositoryCard }: RepositoryCardProps) => {
+export const RepositoryCard = ({ repositoryCard, username }: RepositoryCardProps) => {
   const {
     stars,
     hasLiked,
@@ -40,7 +41,7 @@ export const RepositoryCard = ({ repositoryCard }: RepositoryCardProps) => {
       borderRadius="10px"
       w="100%"
     >
-      <Link href={`/repository/${repositoryTitle}`}>
+      <Link href={`/edu/${username}/${repositoryTitle}`}>
         <Heading mb="0.25rem" fontSize="lg">
           {repositoryTitle}
         </Heading>

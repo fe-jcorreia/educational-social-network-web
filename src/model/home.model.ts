@@ -4,6 +4,7 @@ export interface HomePostCardData extends Repository {}
 
 export type HomeRecommendationCardData = {
   id: string;
+  username: string;
   stars: number;
   hasLiked: boolean;
   repositoryTitle: string;
@@ -11,7 +12,6 @@ export type HomeRecommendationCardData = {
 };
 
 export type HomeData = {
-  username: string;
   mainHomePosts: HomePostCardData[];
   mainRecommendationsPosts: HomeRecommendationCardData[];
 };

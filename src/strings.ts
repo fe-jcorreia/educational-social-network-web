@@ -69,6 +69,21 @@ export const AppStrings = {
 
   Profile: {
     myRepositories: "Meus repositórios",
+    profileRequirements: {
+      requiredName: "Nome obrigatório",
+      requiredEmail: "Email obrigatório",
+      validEmail: "Precisa ser um email válido",
+      requiredPassword: "Senha obrigatória",
+      validPassword: "Senha precisa ter no mínimo 6 caracteres",
+    },
+    profilePlaceholder: {
+      name: "Seu nome",
+      description: "Sua descrição",
+      career: "Sua profissão",
+      city: "Sua cidade",
+      state: "Seu estado",
+      country: "Seu país",
+    },
   },
 };
 

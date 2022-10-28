@@ -17,6 +17,7 @@ interface HomeRecommendationCardProps {
     repositoryTitle: string;
     repositoryDescription: string;
   };
+  username: string;
 }
 
 export const HomeRecommendationCard = (props: HomeRecommendationCardProps) => {
@@ -33,7 +34,7 @@ export const HomeRecommendationCard = (props: HomeRecommendationCardProps) => {
   return (
     <>
       <Box alignItems="center" mb="1rem">
-        <Link href={`/repository/${repositoryTitle}`}>
+        <Link href={`/edu/${props?.username}/${repositoryTitle}`}>
           <Heading textAlign="left" fontSize="xs">
             {repositoryTitle}
           </Heading>

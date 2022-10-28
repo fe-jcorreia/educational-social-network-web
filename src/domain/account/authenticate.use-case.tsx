@@ -2,7 +2,7 @@ import React from "react";
 import { LoginAccountFormData, SignUpAccountFormData, User } from "@src/model";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
-import { nextApi } from "@src/services";
+import { api, nextApi } from "@src/services";
 import Router from "next/router";
 import jwtDecode from "jwt-decode";
 
@@ -12,6 +12,7 @@ interface UseAuthenticate {
   loading: boolean;
   login: (params: LoginAccountFormData) => void;
   signUp: (params: SignUpAccountFormData) => void;
+  logout: () => void;
 }
 
 const AuthContext = React.createContext({} as UseAuthenticate);
@@ -25,14 +26,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   React.useEffect(() => {
     async function getUserFromToken() {
-      const { "nextauth.token": token } = parseCookies();
+      const { nextauthToken: token } = parseCookies();
 
       if (token) {
         const { email }: { email: string } = jwtDecode(token);
 
-        nextApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        const response = await nextApi.post("/user/get", {
+        const response = await nextApi.post("/user/get/email", {
           email,
         });
         const appUser = response.data;
@@ -42,8 +43,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(false);
     }
 
-    getUserFromToken();
-  }, []);
+    if (!user) {
+      getUserFromToken();
+    }
+  }, [user]);
+
+  const logout = () => {
+    destroyCookie(undefined, "nextauthToken");
+    api.defaults.headers.common["Authorization"] = "";
+    Router.reload();
+  };
 
   const login = async ({ email, password }: LoginAccountFormData) => {
     try {
@@ -54,7 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         password
       );
 
-      const response = await nextApi.post("/user/get", { email });
+      const response = await nextApi.post("/user/get/email", { email });
       const appUser = response.data;
 
       setUser(appUser);
@@ -62,13 +71,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const firebaseUser: any = userCredential.user.toJSON();
       const token = firebaseUser.stsTokenManager.accessToken;
 
-      setCookie(undefined, "nextauth.token", token, {
+      setCookie(undefined, "nextauthToken", token, {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
-        sameSite: "lax",
+        sameSite: "None",
       });
 
-      nextApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       Router.push("/dashboard");
     } catch (error: any) {
@@ -105,7 +114,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ login, signUp, loading, logged, user }}>
+    <AuthContext.Provider
+      value={{ login, signUp, logout, loading, logged, user }}
+    >
       {children}
     </AuthContext.Provider>
   );

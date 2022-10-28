@@ -1,41 +1,38 @@
 import React from "react";
 import {
-  Avatar,
-  Box,
   Divider,
   Flex,
   Grid,
   GridItem,
   Heading,
-  Icon,
   Image,
-  Text,
   VStack,
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { BiBuildings } from "react-icons/bi";
-import { HiOutlineMail, HiOutlineLocationMarker } from "react-icons/hi";
 import { Header, RepositoryCard } from "@src/components";
 
-import { ProfileData } from "@src/model";
+import { RepositoriesData, UserData } from "@src/model";
 import { AppStrings } from "@src/strings";
 import { useAuthenticate } from "@src/domain/account";
 import Router from "next/router";
+import { api } from "@src/services";
+import { ProfileDescription } from "@src/modules/profile";
 
 interface ProfileProps {
-  profileData: ProfileData;
+  userData: UserData;
+  repositoryData: RepositoriesData;
 }
 
 interface ServerSideProfileParams extends ParsedUrlQuery {
-  username: string;
+  nickname: string;
 }
 
 const strings = AppStrings.Profile;
 
-export default function Profile({ profileData }: ProfileProps) {
-  const { name, lastName, bio, email, role, username, location, repositories } =
-    profileData;
+export default function Profile({ userData, repositoryData }: ProfileProps) {
+  const { nickname } = userData;
+  const { repositories } = repositoryData;
 
   const { logged, loading } = useAuthenticate();
 
@@ -59,35 +56,7 @@ export default function Profile({ profileData }: ProfileProps) {
 
       <Grid templateColumns="repeat(5, 1fr)" mx="1rem" pt="1rem">
         <GridItem colStart={1} colEnd={3}>
-          <VStack py="3rem" px="4rem" w="100%" spacing={4} alignItems="left">
-            <Avatar
-              size="2xl"
-              mb="1rem"
-              name={name + lastName}
-              alignSelf="center"
-            />
-            <Box>
-              <Heading size="lg">{name + " " + lastName}</Heading>
-              <Text size="md">{username}</Text>
-            </Box>
-            <Text size="lg" fontWeight={500}>
-              {bio}
-            </Text>
-            <VStack spacing={1} align="left" fontWeight={600}>
-              <Flex align="center">
-                <Icon mr="0.25rem" as={BiBuildings} />
-                <Text justifyContent="center">{role}</Text>
-              </Flex>
-              <Flex align="center">
-                <Icon mr="0.25rem" as={HiOutlineLocationMarker} />
-                <Text justifyContent="center">{`${location.city} - ${location.state}, ${location.country}`}</Text>
-              </Flex>
-              <Flex align="center">
-                <Icon mr="0.25rem" as={HiOutlineMail} />
-                <Text justifyContent="center">{email}</Text>
-              </Flex>
-            </VStack>
-          </VStack>
+          <ProfileDescription userData={userData} />
         </GridItem>
 
         <GridItem colStart={3} colEnd={6}>
@@ -100,6 +69,7 @@ export default function Profile({ profileData }: ProfileProps) {
                 <RepositoryCard
                   key={repository.id}
                   repositoryCard={repository}
+                  username={nickname}
                 />
                 <Divider />
               </>
@@ -112,32 +82,39 @@ export default function Profile({ profileData }: ProfileProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { username } = params as ServerSideProfileParams;
+  const { nickname } = params as ServerSideProfileParams;
 
-  const response: ProfileData = { username, ...MOCK_DATA };
+  const response = await api.get(`/user/nickname/${nickname}`);
+  const user = response.data;
+
+  const userData = {
+    name: user.name,
+    description: user.description,
+    email: user.email,
+    career: user.career,
+    nickname: user.nickname,
+    location: {
+      city: user.city,
+      state: user.state,
+      country: user.country,
+    },
+  };
+
+  const res = MOCK_DATA;
 
   return {
     props: {
-      profileData: response,
+      userData,
+      repositoryData: res,
     },
   };
 };
 
 const MOCK_DATA = {
-  name: "Bruno",
-  lastName: "Móvio",
-  bio: "Brazilian React and Next developer. Javascript, React, React Native and Node.js enthusiast.",
-  email: "bruno.movio@gmail.com.br",
-  role: "Estudante",
-  location: {
-    city: "São Paulo",
-    state: "SP",
-    country: "Brasil",
-  },
   repositories: [
     {
       id: "1",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
@@ -147,7 +124,7 @@ const MOCK_DATA = {
     },
     {
       id: "2",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
@@ -157,7 +134,7 @@ const MOCK_DATA = {
     },
     {
       id: "3",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
@@ -167,7 +144,7 @@ const MOCK_DATA = {
     },
     {
       id: "4",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
@@ -177,7 +154,7 @@ const MOCK_DATA = {
     },
     {
       id: "5",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
@@ -187,7 +164,7 @@ const MOCK_DATA = {
     },
     {
       id: "6",
-      username: "bmovio",
+      username: "fe-jcorreia2",
       creationDate: "2022-07-29",
       lastUpdateDate: "2022-08-22",
       repositoryTitle: "myApp",
