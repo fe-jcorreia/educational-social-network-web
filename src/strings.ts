@@ -4,7 +4,8 @@ export const AppStrings = {
   Home: {
     repositoryCards: {
       sharedRepository: " compartilhou um ",
-      file: "arquivo",
+      post: "post",
+      createdAt: "Criado {{date}}",
       updatedAt: "Atualizado {{date}}",
     },
     postsRecommendations: {
@@ -68,7 +69,21 @@ export const AppStrings = {
   },
 
   Profile: {
-    myRepositories: "Meus repositórios",
+    myRepositories: "Repositórios",
+    description: {
+      editButton: "Editar",
+    },
+    edit: {
+      editButton: "Salvar",
+      deleteButton: "Deletar",
+      onDelete: {
+        deleteConfirmation: "Deseja mesmo deletar sua conta?",
+        confirmationWarning:
+          "Todos os seus repositórios, posts e contribuições para a comunidade serão deletados, tem certeza que deseja continuar?",
+        declineButton: "Não deletar",
+        deleteButton: "Deletar",
+      },
+    },
     profileRequirements: {
       requiredName: "Nome obrigatório",
       requiredEmail: "Email obrigatório",
@@ -83,6 +98,81 @@ export const AppStrings = {
       city: "Sua cidade",
       state: "Seu estado",
       country: "Seu país",
+    },
+  },
+
+  Repository: {
+    createdAt: "Criado {{date}}",
+    updatedAt: "Atualizado {{date}}",
+    description: {
+      editButton: "Editar",
+    },
+    create: {
+      creationTitle: "Criar novo repositório",
+      requiredTitle: "Título obrigatório",
+      fields: {
+        title: "Título",
+        description: "Descrição",
+      },
+      createButton: "Criar",
+    },
+    edit: {
+      requiredTitle: "Título obrigatório",
+      fields: {
+        title: "Título",
+        description: "Descrição",
+      },
+      editButton: "Salvar",
+      deleteButton: "Deletar",
+      onDelete: {
+        deleteConfirmation: "Deseja mesmo deletar este repositório?",
+        confirmationWarning:
+          "Todos os seus posts e contribuições para a comunidade neste repositório serão deletados, tem certeza que deseja continuar?",
+        declineButton: "Não deletar",
+        deleteButton: "Deletar",
+      },
+    },
+  },
+
+  Post: {
+    noSelectedPost: "Nenhum post selecionado",
+    expandText: " Ver mais...",
+    createdAt: "Criado {{date}}",
+    updatedAt: "Atualizado {{date}}",
+    description: {
+      editButton: "Editar",
+    },
+    create: {
+      creationTitle: "Criar novo post",
+      requiredTitle: "Título obrigatório",
+      fields: {
+        title: "Título",
+        description: "Descrição",
+      },
+      postRequirementes: {
+        title: "Título obrigatório",
+        subtitle: "Subtítulo obrigatório",
+        text: "Texto obrigatório",
+      },
+      createButton: "Criar",
+    },
+    edit: {
+      requiredTitle: "Título obrigatório",
+      fields: {
+        title: "Título",
+        subtitle: "Subtítulo",
+        image: "Imagem",
+        text: "Texto",
+      },
+      editButton: "Salvar",
+      deleteButton: "Deletar",
+      onDelete: {
+        deleteConfirmation: "Deseja mesmo deletar este post?",
+        confirmationWarning:
+          "Suas contribuições para a comunidade neste post serão deletados, tem certeza que deseja continuar?",
+        declineButton: "Não deletar",
+        deleteButton: "Deletar",
+      },
     },
   },
 };

@@ -9,7 +9,7 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import { useAuthenticate } from "@src/domain/account";
+import { useAuthenticate } from "@src/domain";
 import { FiLogOut } from "react-icons/fi";
 
 export function Header() {

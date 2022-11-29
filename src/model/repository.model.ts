@@ -1,17 +1,27 @@
-export type RepositoryData = {
-  title: string;
-  description: string;
-  stars: number;
-  hasLiked: boolean;
-};
-
 export type Repository = {
   id: string;
-  username: string;
+  title: string;
+  description: string;
+  repositoryNickname: string;
   creationDate: string;
   lastUpdateDate: string;
-  repositoryTitle: string;
-  repositoryDescription: string;
-  stars: number;
-  hasLiked: boolean;
+};
+
+export type RepositoryDatasource = {
+  id: string;
+  title: string;
+  description: string;
+  creationDate: string;
+  lastUpdateDate: string;
+  nickname: string;
+};
+
+export type CreateRepositoryForm = {
+  title: string;
+  description: string;
+};
+
+export type EditRepositoryForm = {
+  title: string;
+  description: string;
 };

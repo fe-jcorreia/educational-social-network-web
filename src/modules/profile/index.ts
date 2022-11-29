@@ -1,1 +1,2 @@
-export * from "./profile-description";
+export * from "./profile-description.component";
+export * from "./repository-list.component";

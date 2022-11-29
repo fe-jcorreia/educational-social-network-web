@@ -1,7 +1,18 @@
-import { Grid, GridItem, Text, Heading, Flex, Image } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Text,
+  Heading,
+  Flex,
+  Image,
+  Spinner,
+  Box,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
-import { HomeData } from "@src/model";
+import { Post, Repository } from "@src/model";
 import {
   HomePostCard,
   HomeRecommendationCard,
@@ -10,12 +21,73 @@ import {
 import { AppStrings } from "@src/strings";
 import { Header } from "@src/components";
 import Router from "next/router";
-import { useAuthenticate } from "@src/domain/account";
+import { useAuthenticate, useGetPostFeed } from "@src/domain";
+import { useGetRepositoryFeed } from "@src/domain/get-repository-feed.use-case";
 
 const strings = AppStrings.Home.postsRecommendations;
 
 const Dashboard: NextPage = () => {
   const { user, logged, loading } = useAuthenticate();
+  const [pageCount, setPageCount] = React.useState(0);
+
+  const [postsData, setPostsData] = React.useState<Post[]>([]);
+  const [hasNextPostHomePage, setHasNextPostHomePage] = React.useState(true);
+
+  const [repositoriesData, setRepositoriesData] = React.useState<Repository[]>(
+    []
+  );
+
+  const observer = React.useRef();
+  const lastElementRef = React.useCallback(
+    (node: any) => {
+      if (loading) return;
+      // @ts-ignore
+      if (observer.current) observer.current.disconnect();
+      // @ts-ignore
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPageCount((prev) => prev + 1);
+        }
+      });
+      // @ts-ignore
+      if (node) observer.current.observe(node);
+    },
+    [loading]
+  );
+
+  const { getPosts } = useGetPostFeed();
+  const { getRepositories } = useGetRepositoryFeed();
+
+  React.useEffect(() => {
+    async function getRepositoriesHomeData() {
+      const repositories = await getRepositories({
+        userId: user?.id,
+        pageNumber: 0,
+      });
+
+      setRepositoriesData(repositories);
+    }
+
+    if (user?.id) {
+      getRepositoriesHomeData();
+    }
+  }, [getRepositories, user?.id]);
+
+  React.useEffect(() => {
+    async function getPostsHomeData() {
+      const { posts: newPosts, hasNextPage } = await getPosts({
+        userId: user?.id,
+        pageNumber: pageCount,
+      });
+
+      setPostsData((prev) => [...prev, ...newPosts]);
+      setHasNextPostHomePage(hasNextPage);
+    }
+
+    if (user?.id) {
+      getPostsHomeData();
+    }
+  }, [getPosts, pageCount, user?.id]);
 
   React.useEffect(() => {
     if (!loading && !logged) {
@@ -40,23 +112,53 @@ const Dashboard: NextPage = () => {
         </GridItem>
 
         <GridItem colStart={2} colEnd={5}>
-          {mainHomePosts &&
-            mainHomePosts?.map((post) => {
-              return <HomePostCard key={post.id} mainHomePosts={post} />;
-            })}
+          {postsData.length ? (
+            <>
+              {postsData?.map((post, index) => {
+                if (postsData.length === index + 1) {
+                  return (
+                    <div key={post.id} ref={lastElementRef}>
+                      <HomePostCard post={post} />
+                    </div>
+                  );
+                } else {
+                  return <HomePostCard post={post} key={post.id} />;
+                }
+              })}
+              {hasNextPostHomePage && (
+                <Box maxW="70%" mx="auto" textAlign="center">
+                  <Spinner my="2rem" />
+                </Box>
+              )}
+            </>
+          ) : (
+            <Box maxW="70%" mx="auto">
+              <Box mb="4rem">
+                <SkeletonCircle size="40px" />
+                <SkeletonText mt="4" noOfLines={6} spacing="4" />
+              </Box>
+              <Box mb="4rem">
+                <SkeletonCircle size="40px" />
+                <SkeletonText mt="4" noOfLines={6} spacing="4" />
+              </Box>
+              <Box mb="4rem">
+                <SkeletonCircle size="40px" />
+                <SkeletonText mt="4" noOfLines={6} spacing="4" />
+              </Box>
+            </Box>
+          )}
         </GridItem>
 
         <GridItem>
           <Heading fontSize="sm" mb="1rem">
             {strings.title}
           </Heading>
-          {mainRecommendationsPosts &&
-            mainRecommendationsPosts?.map((post) => {
+          {repositoriesData &&
+            repositoriesData?.map((repository) => {
               return (
                 <HomeRecommendationCard
-                  key={post.id}
-                  recomendationCard={post}
-                  username={post.username}
+                  key={repository.id}
+                  repository={repository}
                 />
               );
             })}
@@ -65,100 +167,6 @@ const Dashboard: NextPage = () => {
       </Grid>
     </>
   );
-};
-
-const { mainHomePosts, mainRecommendationsPosts }: HomeData = {
-  mainHomePosts: [
-    {
-      id: "1232-9502-8531",
-      username: "fe-jcorreia",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-    {
-      id: "1232-9502-8532",
-      username: "gigi97princess",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-    {
-      id: "1232-9502-8533",
-      username: "tamy_takara",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-    {
-      id: "1232-9502-8534",
-      username: "fe-jcorreia",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-    {
-      id: "1232-9502-8535",
-      username: "fe-jcorreia",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-    {
-      id: "1232-9502-8536",
-      username: "fe-jcorreia",
-      creationDate: "2022-07-29",
-      lastUpdateDate: "2022-08-17",
-      repositoryTitle: "sistemas-operacionais",
-      repositoryDescription: "Sistemas operacionais para POLI-USP",
-      stars: 98,
-      hasLiked: false,
-    },
-  ],
-  mainRecommendationsPosts: [
-    {
-      id: "9341-5921-4520",
-      username: "tamyatsu",
-      stars: 1506,
-      hasLiked: false,
-      repositoryTitle: "formar-na-poli",
-      repositoryDescription:
-        "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-    },
-    {
-      id: "9341-1221-4520",
-      username: "tamyatsu",
-      stars: 1506,
-      hasLiked: false,
-      repositoryTitle: "formar-na-poli",
-      repositoryDescription:
-        "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-    },
-    {
-      id: "9341-4521-4520",
-      username: "tamyatsu",
-      stars: 1506,
-      hasLiked: false,
-      repositoryTitle: "formar-na-poli",
-      repositoryDescription:
-        "Repositório destinados a todos os amiguinhos que estão na jornada de se formar na escola politécnica com todos os conhecimentos acumulados da maior guru dessa escola",
-    },
-  ],
 };
 
 export default Dashboard;

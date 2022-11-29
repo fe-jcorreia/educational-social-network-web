@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import React from "react";
 import { LoginCard } from "@src/modules/account";
 import { AppStrings } from "@src/strings";
-import { useAuthenticate } from "@src/domain/account";
+import { useAuthenticate } from "@src/domain";
 import Router from "next/router";
 import { Header } from "@src/components";
 

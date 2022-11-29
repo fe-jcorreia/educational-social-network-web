@@ -1,3 +1,7 @@
+import React from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   Button,
   Link,
@@ -12,16 +16,13 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { FiLock, FiMail } from "react-icons/fi";
+
 import { Input } from "@src/components";
-import React from "react";
-import { SignUpCard } from "./signup-card";
+import { SignUpCard } from "./signup-card.component";
 import { AppStrings } from "@src/strings";
-import { LoginAccountFormData } from "@src/model";
-import { useAuthenticate } from "@src/domain/account";
+import { AccountLoginForm } from "@src/model";
+import { useAuthenticate } from "@src/domain";
 
 const strings = AppStrings.Login;
 const signUpStrings = AppStrings.SignUp;
@@ -41,7 +42,7 @@ const signInForSchema = yup.object().shape({
 
 export function LoginCard() {
   const { register, handleSubmit, reset, formState } =
-    useForm<LoginAccountFormData>({
+    useForm<AccountLoginForm>({
       resolver: yupResolver(signInForSchema),
     });
 
@@ -52,7 +53,7 @@ export function LoginCard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
-  const handleLogin: SubmitHandler<LoginAccountFormData> = (credentials) => {
+  const handleLogin: SubmitHandler<AccountLoginForm> = (credentials) => {
     login({ email: credentials.email, password: credentials.password });
 
     reset();

@@ -1,12 +1,13 @@
-import { Button, HStack, Link, Text, VStack } from "@chakra-ui/react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import React from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Button, HStack, Link, Text, VStack } from "@chakra-ui/react";
+
 import { Input } from "@src/components";
-import React from "react";
 import { AppStrings } from "@src/strings";
-import { SignUpAccountFormData } from "@src/model";
-import { useAuthenticate } from "@src/domain/account";
+import { AccountSignUpForm } from "@src/model";
+import { useAuthenticate } from "@src/domain";
 
 const strings = AppStrings.SignUp;
 
@@ -34,14 +35,14 @@ const signInForSchema = yup.object().shape({
 
 export function SignUpCard() {
   const { register, handleSubmit, reset, formState } =
-    useForm<SignUpAccountFormData>({
+    useForm<AccountSignUpForm>({
       resolver: yupResolver(signInForSchema),
     });
   const { signUp } = useAuthenticate();
 
   const errors = formState.errors;
 
-  const handleSignUp: SubmitHandler<SignUpAccountFormData> = (credentials) => {
+  const handleSignUp: SubmitHandler<AccountSignUpForm> = (credentials) => {
     signUp({
       name: credentials.name,
       lastName: credentials.lastName,

@@ -1,2 +1,2 @@
-export * from "./login-card";
-export * from "./signup-card";
+export * from "./login-card.component";
+export * from "./signup-card.component";
