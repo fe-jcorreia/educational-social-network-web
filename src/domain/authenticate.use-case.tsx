@@ -74,7 +74,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setCookie(undefined, "nextauthToken", token, {
         maxAge: 60 * 60 * 24 * 30,
         path: "/",
-        sameSite: "None",
       });
 
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
