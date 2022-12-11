@@ -33,6 +33,7 @@ const SelectBase: ForwardRefRenderFunction<HTMLInputElement, SelectProps> = (
           _hover={{ bgColor: "none" }}
           borderColor="gray.500"
           focusBorderColor="gray.600"
+          // @ts-ignore
           ref={ref}
           {...rest}
         >
