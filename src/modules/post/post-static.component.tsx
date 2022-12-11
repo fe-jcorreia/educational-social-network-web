@@ -14,8 +14,8 @@ import { FaStar } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
 
 import { AppStrings, replaceTemplateString } from "@src/strings";
-import { getLowerCasePastTime } from "@src/utils";
-import { useAuthenticate } from "@src/domain";
+import { formatDayMontYearDate } from "@src/utils";
+import { useAuthenticate, useLikePost } from "@src/domain";
 import { Post } from "@src/model";
 
 interface RepositoryCardProps {
@@ -32,6 +32,7 @@ export const PostStatic = ({
   notInRepositoryView,
 }: RepositoryCardProps) => {
   const {
+    id,
     repositoryNickname,
     stars,
     likeList,
@@ -43,12 +44,27 @@ export const PostStatic = ({
     image,
   } = post;
   const { user } = useAuthenticate();
+  const { likePost, deslikePost } = useLikePost();
 
   const [trimText, setTrimText] = React.useState(true);
   const [liked, setLiked] = React.useState(likeList.includes(user.id));
+  const [likeCount, setLikeCount] = React.useState(stars);
 
   const handleLikePost = () => {
-    console.log("update star");
+    if (liked) {
+      deslikePost({ postId: id, userId: user.id });
+    } else {
+      likePost({ postId: id, userId: user.id });
+    }
+
+    let starsCount;
+    if (likeList.includes(user.id)) {
+      starsCount = liked ? stars - 1 : stars;
+    } else {
+      starsCount = liked ? stars : stars + 1;
+    }
+
+    setLikeCount(starsCount);
     setLiked((prevState) => !prevState);
   };
 
@@ -96,14 +112,14 @@ export const PostStatic = ({
                 color={liked ? "orange" : ""}
                 mr="0.2rem"
               />{" "}
-              <Text fontSize="sm">{stars}</Text>
+              <Text fontSize="sm">{likeCount}</Text>
             </Flex>
           </Link>
 
           {creationDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.createdAt, {
-                date: getLowerCasePastTime(new Date(creationDate)),
+                date: formatDayMontYearDate(creationDate),
               })}
             </Text>
           )}
@@ -111,7 +127,7 @@ export const PostStatic = ({
           {lastUpdateDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.updatedAt, {
-                date: getLowerCasePastTime(new Date(lastUpdateDate)),
+                date: formatDayMontYearDate(lastUpdateDate),
               })}
             </Text>
           )}

@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, VStack } from "@chakra-ui/react";
 
-import { Input, TextArea } from "@src/components";
-import { CreatePostForm, Post } from "@src/model";
+import { Input, Select, TextArea } from "@src/components";
+import { CreatePostForm, filterTypes, Post } from "@src/model";
 import { useAuthenticate, useCreatePost } from "@src/domain";
 import { AppStrings } from "@src/strings";
 
@@ -21,6 +21,8 @@ const createPostSchema = yup.object().shape({
   title: yup.string().required("Título obrigatório").trim(),
   subtitle: yup.string().required("Subtítulo obrigatório").trim(),
   text: yup.string().required("Texto obrigatório").trim(),
+  image: yup.string().trim(),
+  category: yup.string().trim(),
 });
 
 export function CreatePostComponent({
@@ -59,6 +61,17 @@ export function CreatePostComponent({
           label="Subtítulo"
           error={errors.subtitle}
           {...register("subtitle")}
+        />
+        <Input
+          label="Link de Imagem"
+          error={errors.image}
+          {...register("image")}
+        />
+        <Select
+          label="Categoria"
+          options={filterTypes}
+          error={errors.category}
+          {...register("category")}
         />
         <TextArea
           height="500px"

@@ -12,7 +12,7 @@ import { FiBook } from "react-icons/fi";
 import { BiEditAlt } from "react-icons/bi";
 
 import { AppStrings, replaceTemplateString } from "@src/strings";
-import { getLowerCasePastTime } from "@src/utils";
+import { formatDayMontYearDate } from "@src/utils";
 import { useAuthenticate } from "@src/domain";
 import { Repository } from "@src/model";
 
@@ -58,7 +58,7 @@ export const RepositoryDescriptionStatic = ({
           {creationDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.createdAt, {
-                date: getLowerCasePastTime(new Date(creationDate)),
+                date: formatDayMontYearDate(creationDate),
               })}
             </Text>
           )}
@@ -66,7 +66,7 @@ export const RepositoryDescriptionStatic = ({
           {lastUpdateDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.updatedAt, {
-                date: getLowerCasePastTime(new Date(lastUpdateDate)),
+                date: formatDayMontYearDate(lastUpdateDate),
               })}
             </Text>
           )}

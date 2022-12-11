@@ -5,3 +5,4 @@ export * from "./update-repository.use-case";
 export * from "./update-post.use-case";
 export * from "./create-post.use-case";
 export * from "./get-post-feed.use-case";
+export * from "./like-post.use-case";

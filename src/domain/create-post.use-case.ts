@@ -11,6 +11,8 @@ interface CreatePostUseCaseParams {
   title: string;
   subtitle: string;
   text: string;
+  image?: string;
+  category?: string;
 }
 
 export const useCreatePost = (): UseCreatePost => {
@@ -20,6 +22,8 @@ export const useCreatePost = (): UseCreatePost => {
     title,
     subtitle,
     text,
+    image,
+    category,
   }: CreatePostUseCaseParams): Promise<Post> => {
     const { data } = await nextApi.post("/post/create", {
       input: {
@@ -28,7 +32,8 @@ export const useCreatePost = (): UseCreatePost => {
         title,
         subtitle,
         text,
-        tags: { category: null },
+        image,
+        tags: { category },
       },
     });
 
@@ -45,6 +50,7 @@ export const useCreatePost = (): UseCreatePost => {
       image: data.image,
       stars: data.likes,
       likeList: data.usersLiked,
+      category: data.tags.category,
     };
   };
 

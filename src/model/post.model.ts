@@ -11,6 +11,7 @@ export type Post = {
   subtitle: string;
   text: string;
   image?: string;
+  category?: string;
 };
 
 export type PostDatasource = {
@@ -38,10 +39,14 @@ export type CreatePostForm = {
   title: string;
   subtitle: string;
   text: string;
+  image?: string;
+  category?: string;
 };
 
 export type EditPostForm = {
   title: string;
   subtitle: string;
   text: string;
+  image?: string;
+  category?: string;
 };

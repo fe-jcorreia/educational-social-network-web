@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Divider, Heading, HStack, Link, Text } from "@chakra-ui/react";
 
 import { AppStrings, replaceTemplateString } from "@src/strings";
-import { getLowerCasePastTime } from "@src/utils";
+import { formatDayMontYearDate } from "@src/utils";
 import { Repository } from "@src/model";
 
 interface RepositoryCardProps {
@@ -40,7 +40,7 @@ export const RepositoryCard = ({
           {creationDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.createdAt, {
-                date: getLowerCasePastTime(new Date(creationDate)),
+                date: formatDayMontYearDate(creationDate),
               })}
             </Text>
           )}
@@ -48,7 +48,7 @@ export const RepositoryCard = ({
           {lastUpdateDate && (
             <Text fontSize="xs">
               {replaceTemplateString(strings.updatedAt, {
-                date: getLowerCasePastTime(new Date(lastUpdateDate)),
+                date: formatDayMontYearDate(lastUpdateDate),
               })}
             </Text>
           )}

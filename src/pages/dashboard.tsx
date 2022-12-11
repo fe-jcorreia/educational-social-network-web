@@ -9,10 +9,17 @@ import {
   Box,
   SkeletonCircle,
   SkeletonText,
+  Menu,
+  MenuButton,
+  MenuList,
+  Button,
+  Checkbox,
+  VStack,
+  Icon,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import React from "react";
-import { Post, Repository } from "@src/model";
+import { filterTypes, Post, Repository } from "@src/model";
 import {
   HomePostCard,
   HomeRecommendationCard,
@@ -23,13 +30,18 @@ import { Header } from "@src/components";
 import Router from "next/router";
 import { useAuthenticate, useGetPostFeed } from "@src/domain";
 import { useGetRepositoryFeed } from "@src/domain/get-repository-feed.use-case";
+import { FiFilter } from "react-icons/fi";
 
 const strings = AppStrings.Home.postsRecommendations;
 
 const Dashboard: NextPage = () => {
   const { user, logged, loading } = useAuthenticate();
-  const [pageCount, setPageCount] = React.useState(0);
+  const [filterCheckedItems, setFilterCheckedItems] = React.useState<string[]>(
+    []
+  );
+  const [filteredPosts, setFilteredPosts] = React.useState<Post[]>([]);
 
+  const [pageCount, setPageCount] = React.useState(0);
   const [postsData, setPostsData] = React.useState<Post[]>([]);
   const [hasNextPostHomePage, setHasNextPostHomePage] = React.useState(true);
 
@@ -58,6 +70,23 @@ const Dashboard: NextPage = () => {
   const { getPosts } = useGetPostFeed();
   const { getRepositories } = useGetRepositoryFeed();
 
+  const handleChangeFilters = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const wasChecked = filterCheckedItems.includes(e.target.value);
+    setFilterCheckedItems((prev) =>
+      wasChecked
+        ? prev.filter((item) => item !== e.target.value)
+        : [...prev, e.target.value]
+    );
+  };
+
+  React.useEffect(() => {
+    setFilteredPosts(
+      postsData.filter((post) =>
+        post.category ? filterCheckedItems.includes(post.category) : false
+      )
+    );
+  }, [postsData, filterCheckedItems]);
+
   React.useEffect(() => {
     async function getRepositoriesHomeData() {
       const repositories = await getRepositories({
@@ -80,7 +109,23 @@ const Dashboard: NextPage = () => {
         pageNumber: pageCount,
       });
 
-      setPostsData((prev) => [...prev, ...newPosts]);
+      setPostsData((prev) => {
+        const totalPosts = [...prev, ...newPosts];
+
+        const orderedPosts = totalPosts
+          .sort(function (postA, postB) {
+            var dateA = postA.lastUpdateDate,
+              dateB = postB.lastUpdateDate;
+
+            var aa = new Date(dateA);
+            var bb = new Date(dateB);
+
+            return Number(aa) - Number(bb);
+          })
+          .reverse();
+
+        return orderedPosts;
+      });
       setHasNextPostHomePage(hasNextPage);
     }
 
@@ -112,23 +157,74 @@ const Dashboard: NextPage = () => {
         </GridItem>
 
         <GridItem colStart={2} colEnd={5}>
+          <Box maxW="70%" mx="auto" mb="2rem">
+            <Menu>
+              <MenuButton
+                p="0"
+                _hover={{ bg: "transparent" }}
+                _focus={{ bg: "transparent" }}
+                colorScheme="teal"
+                variant="ghost"
+                as={Button}
+              >
+                <Icon as={FiFilter} mr="0.5rem" />
+                Filtrar categorias
+              </MenuButton>
+              <MenuList>
+                <VStack align="start" mx="1rem" my="0.5rem">
+                  {filterTypes.map((filter) => (
+                    <Checkbox
+                      key={filter}
+                      onChange={handleChangeFilters}
+                      value={filter}
+                    >
+                      {filter}
+                    </Checkbox>
+                  ))}
+                </VStack>
+              </MenuList>
+            </Menu>
+          </Box>
+
           {postsData.length ? (
             <>
-              {postsData?.map((post, index) => {
-                if (postsData.length === index + 1) {
-                  return (
-                    <div key={post.id} ref={lastElementRef}>
-                      <HomePostCard post={post} />
-                    </div>
-                  );
-                } else {
-                  return <HomePostCard post={post} key={post.id} />;
-                }
-              })}
-              {hasNextPostHomePage && (
-                <Box maxW="70%" mx="auto" textAlign="center">
-                  <Spinner my="2rem" />
-                </Box>
+              {filterCheckedItems.length ? (
+                <>
+                  {filteredPosts.map((post, index) => {
+                    if (filteredPosts.length === index + 1) {
+                      return (
+                        <div key={post.id} ref={null}>
+                          <HomePostCard post={post} />
+                        </div>
+                      );
+                    } else {
+                      return <HomePostCard post={post} key={post.id} />;
+                    }
+                  })}
+                </>
+              ) : (
+                <>
+                  {postsData.map((post, index) => {
+                    if (postsData.length === index + 1) {
+                      return (
+                        <div
+                          key={post.id}
+                          ref={hasNextPostHomePage ? lastElementRef : null}
+                        >
+                          <HomePostCard post={post} />
+                        </div>
+                      );
+                    } else {
+                      return <HomePostCard post={post} key={post.id} />;
+                    }
+                  })}
+
+                  {hasNextPostHomePage && (
+                    <Box maxW="70%" mx="auto" textAlign="center">
+                      <Spinner my="2rem" />
+                    </Box>
+                  )}
+                </>
               )}
             </>
           ) : (

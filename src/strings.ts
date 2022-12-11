@@ -5,8 +5,8 @@ export const AppStrings = {
     repositoryCards: {
       sharedRepository: " compartilhou um ",
       post: "post",
-      createdAt: "Criado {{date}}",
-      updatedAt: "Atualizado {{date}}",
+      createdAt: "Criado dia {{date}}",
+      updatedAt: "Atualizado dia {{date}}",
     },
     postsRecommendations: {
       title: "Explore outros repositórios",
@@ -102,8 +102,8 @@ export const AppStrings = {
   },
 
   Repository: {
-    createdAt: "Criado {{date}}",
-    updatedAt: "Atualizado {{date}}",
+    createdAt: "Criado dia {{date}}",
+    updatedAt: "Atualizado dia {{date}}",
     description: {
       editButton: "Editar",
     },
@@ -137,8 +137,8 @@ export const AppStrings = {
   Post: {
     noSelectedPost: "Nenhum post selecionado",
     expandText: " Ver mais...",
-    createdAt: "Criado {{date}}",
-    updatedAt: "Atualizado {{date}}",
+    createdAt: "Criado dia {{date}}",
+    updatedAt: "Atualizado dia {{date}}",
     description: {
       editButton: "Editar",
     },

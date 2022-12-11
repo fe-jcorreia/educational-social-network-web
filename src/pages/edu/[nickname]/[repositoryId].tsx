@@ -133,6 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       image: post.image,
       stars: post.likes,
       likeList: post.usersLiked,
+      category: post.tags.category,
     };
   });
 

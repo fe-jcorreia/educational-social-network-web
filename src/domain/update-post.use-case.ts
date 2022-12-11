@@ -11,6 +11,8 @@ interface UpdatePostUseCaseParams {
   title: string;
   subtitle: string;
   text: string;
+  image?: string;
+  category?: string;
 }
 
 export const useUpdatePost = (): UseUpdatePost => {
@@ -20,6 +22,8 @@ export const useUpdatePost = (): UseUpdatePost => {
     title,
     subtitle,
     text,
+    image,
+    category,
   }: UpdatePostUseCaseParams): Promise<Post> => {
     const { data } = await nextApi.post("/post/update", {
       input: {
@@ -28,7 +32,8 @@ export const useUpdatePost = (): UseUpdatePost => {
         title,
         subtitle,
         text,
-        tags: { category: null },
+        image,
+        tags: { category },
       },
     });
 
@@ -45,6 +50,7 @@ export const useUpdatePost = (): UseUpdatePost => {
       image: data.image,
       stars: data.likes,
       likeList: data.usersLiked,
+      category: data.tags.category,
     };
   };
 

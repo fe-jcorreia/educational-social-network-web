@@ -1,3 +1,4 @@
+import React from "react";
 import { Repository, RepositoryDatasource } from "@src/model";
 import { nextApi } from "@src/services";
 
@@ -11,28 +12,31 @@ interface RepositoryFeedUseCaseParams {
 }
 
 export const useGetRepositoryFeed = (): UsePostFeed => {
-  const getRepositories = async ({
-    userId,
-    pageNumber,
-  }: RepositoryFeedUseCaseParams): Promise<Repository[]> => {
-    const { data } = await nextApi.post("/home/repository", {
+  const getRepositories = React.useCallback(
+    async ({
       userId,
       pageNumber,
-    });
+    }: RepositoryFeedUseCaseParams): Promise<Repository[]> => {
+      const { data } = await nextApi.post("/home/repository", {
+        userId,
+        pageNumber,
+      });
 
-    const responseRepositories = data.folders;
+      const responseRepositories = data.folders;
 
-    return responseRepositories?.map((repository: RepositoryDatasource) => {
-      return {
-        id: repository.id,
-        title: repository.title,
-        description: repository.description,
-        repositoryNickname: repository.nickname,
-        creationDate: repository.creationDate,
-        lastUpdateDate: repository.lastUpdateDate,
-      };
-    });
-  };
+      return responseRepositories?.map((repository: RepositoryDatasource) => {
+        return {
+          id: repository.id,
+          title: repository.title,
+          description: repository.description,
+          repositoryNickname: repository.nickname,
+          creationDate: repository.creationDate,
+          lastUpdateDate: repository.lastUpdateDate,
+        };
+      });
+    },
+    []
+  );
 
   return { getRepositories };
 };
