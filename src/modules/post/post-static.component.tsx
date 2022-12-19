@@ -83,7 +83,7 @@ export const PostStatic = ({
         <Heading mb="0.5rem" fontSize="sm" textAlign="start">
           {subtitle}
         </Heading>
-        <Text fontSize="sm" mb="1rem" textAlign="justify">
+        <Text fontSize="sm" mb="1rem" textAlign="justify" whiteSpace="pre-wrap">
           {trimText ? text.split(" ").slice(0, 50).join(" ") : text}
           {trimText && (
             <Link>
@@ -94,13 +94,27 @@ export const PostStatic = ({
           )}
         </Text>
         {image && (
-          <Image
-            boxSize="100%"
-            objectFit="cover"
-            src={image}
-            alt="image"
-            mb="1rem"
-          />
+          <>
+            {image.substring(image.length - 3) === "mp4" ? (
+              <Image
+                as="video"
+                controls
+                boxSize="100%"
+                objectFit="cover"
+                src={image}
+                alt="image"
+                mb="1rem"
+              />
+            ) : (
+              <Image
+                boxSize="100%"
+                objectFit="cover"
+                src={image}
+                alt="image"
+                mb="1rem"
+              />
+            )}
+          </>
         )}
 
         <HStack spacing="2rem">

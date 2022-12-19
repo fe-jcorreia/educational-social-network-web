@@ -41,6 +41,8 @@ const TextAreaBase: ForwardRefRenderFunction<
           _hover={{ bgColor: "none" }}
           borderColor="gray.500"
           focusBorderColor="gray.600"
+          whiteSpace="pre-wrap"
+          wordBreak="keep-all"
           ref={ref}
           {...rest}
         />
